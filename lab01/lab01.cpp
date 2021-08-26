@@ -1,6 +1,5 @@
-// Oliver Fried
-// 241932
-// Lab Submission
+// Oliver Fried, 241932
+// This program prints some basic statements. 
 
 #include <iostream>
 using namespace std;
@@ -28,9 +27,9 @@ int main()
            cout << "This is a " << flush;
 
            /* instead of concatenating strings and integers (which is apparently difficult in C++), 
-           I use two different statements to print on the same line */
-           cout << i-4 << endl;
-           
+           I use three different statements to print on the same line */
+           cout << i-4 << flush;
+           cout << "!" << endl;
        }
    }
 
