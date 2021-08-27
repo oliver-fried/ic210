@@ -36,7 +36,7 @@ int main()
   // printing output...
   std::cout << "Difference is:" << std::endl;
   //I am borrowing this output format from the notes
-  std::cout << outputFeet << footMarker << outputInches << inchMarker << std::endl;
+  std::cout << outputFeet << footMarker << " " << outputInches << inchMarker << std::endl;
 
   return 0;
 }
