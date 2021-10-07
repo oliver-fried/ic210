@@ -13,8 +13,9 @@ int main () {
     cin >> seed;
     srand(seed);
     
-    char optionToPlayAgain == 'y';
+    char optionToPlayAgain = 'y';
     int setpoint = 0;
+
     while (optionToPlayAgain == 'y'){
         int holderVar = throwdice();
 
@@ -46,7 +47,7 @@ int main () {
 
     }
    
-    }
+    
     
 
     return 0;
