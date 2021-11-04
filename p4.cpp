@@ -1,6 +1,3 @@
-
-
-
 // I referenced a stack overflow site on deleting elements of a 
 // C++ array for this part and returning multiple values from one 
 // funciton, and the function of the exit command
@@ -18,7 +15,7 @@ using namespace std;
 int* cardDeck();
 int* initialPlayerCards(int* array);
 int* initialDealerCards(int* array);
-
+int* shuffleDeck(int* array, int seed);
 int* additionalDeals(int* cardDeck, int* hand);
 
 // this will remove the top card
@@ -28,13 +25,38 @@ int* removeCards(int* cardDeck);
 
 void showHands(int* playerHand, int* dealerHand);
 
+// this shows the deck
+void printDeck(int* array);
+
 int main()
 {
     // holds the option to hit or stand   
-    char option;
+    char option, shuffle;
+    int* fullCardDeck;
 
+    cout << "Shuffle: [n | u <seed>]: ";
+    cin >> shuffle;
+    
+    if(shuffle == 'u') {
+        
+
+        int seed;
+        cin >> seed;
+
+
+        cout << endl;
+        fullCardDeck = shuffleDeck(cardDeck(), seed);
+        printDeck(fullCardDeck);
+    }
+    
+    else {
+    
     // getting the values returned from each function
-    int* fullCardDeck = cardDeck();
+    fullCardDeck = cardDeck();
+    printDeck(fullCardDeck);
+    }
+    
+
     int* playerHand = initialPlayerCards(fullCardDeck);
     int* dealerHand = initialDealerCards(fullCardDeck);
     showHands(playerHand, dealerHand);
@@ -49,14 +71,34 @@ int main()
 
     // for 3 rounds, do this
     for(int i = 1; i < 4; i++){
-        playerHand = additionalDeals(fullCardDeck, playerHand); 
-        fullCardDeck = removeCards(fullCardDeck);
-        dealerHand = additionalDeals(fullCardDeck, dealerHand); 
-        fullCardDeck = removeCards(fullCardDeck);
+        cout << endl << "Round " << i << " Player's turn" << endl << "hit or stand ? [h/s] ";
+
+
+        cin >> option;
+
+        // if they hit, deal another card and remove the card that was dealt
+        if(option == 'h'){
+            playerHand = additionalDeals(fullCardDeck, playerHand); 
+            fullCardDeck = removeCards(fullCardDeck);
+        }
+
         showHands(playerHand, dealerHand);
 
+        cout << endl << "Round " << i << " Dealer's turn" << endl << "hit or stand ? [h/s] ";
 
+        cin >> option;
+        
+        // if dealer hits, do the same as the player
+        if(option == 'h'){
+            dealerHand = additionalDeals(fullCardDeck, dealerHand); 
+            fullCardDeck = removeCards(fullCardDeck);
+        }
+
+
+        showHands(playerHand, dealerHand);
+      
     }
+
 
   return 0;
 }
@@ -67,7 +109,6 @@ int* cardDeck() {
 
     // create a 52 size array to hold all cards
     int* cards = new int[52];
-    cout << "[";
 
     // for each card
     for(int i = 0; i < 52; i++){
@@ -76,24 +117,45 @@ int* cardDeck() {
         cards[i] = (((i / 13) + 1) * 100) + ((i % 13) + 2);
 
         // manage the spacing correctly
-        if(i == 51) {
-             cout << (((i / 13) + 1) * 100) + ((i % 13) + 2); 
-        }
-
-        else{
-            cout << (((i / 13) + 1) * 100) + ((i % 13) + 2) << " ";
-        }
-
-
     }
-
-    cout << "]" << endl;;  
 
 
     return cards;
 
 }
+// shuffles deck by swapping elements around
+int* shuffleDeck(int* array, int seed) {
+    srand(seed);
+    for(int i = 0; i < 52; i++){
+        // get random value for a random card
+        int j = rand() % 52;
 
+        // swap the cards around
+        int tempValue = array[i];
+        array[i] = array[j];
+        array[j] = tempValue;
+        
+    }
+  
+
+    return array;
+}
+
+// prints the card deck
+void printDeck(int* array) {
+    cout << "[";
+    // iterateu through the deck and print
+    for(int j = 0; j < 52; j++)
+     if(j == 51) {
+             cout << array[j]; 
+        }
+
+        else{
+            cout << array[j] << " ";
+        }
+
+    cout << "]" << endl;
+}
 
 // this removes cards from the top and puts them on teh bottom
 int* removeCards(int* cardDeck) {

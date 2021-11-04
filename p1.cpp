@@ -1,35 +1,53 @@
 #include <iostream>
-using namespace std;
+#include <fstream>
 #include <string>
 #include <cstdlib>
+using namespace std;
 
-int rand();   // needs #include <cstdlib>
-int rolldie();
-
-int main () {
-
-    int seed;
-    cout << "Enter seed value: ";
-    cin >> seed;
-    srand(seed);
+// prototype
+void cardDeck();
 
 
-    int i = 0;
-    while(i < 5){
-        rolldie();
-        i++;
+int main()
+{   
+   
+    cardDeck();
+  return 0;
+}
+
+
+// card deck array
+void cardDeck() {
+
+    // create a 52 size array to hold all cards
+    int* cards = new int[52];
+    cout << "[";
+
+    // for each card
+    for(int i = 0; i < 52; i++){
+
+        //define it with this math
+        cards[i] = (((i / 13) + 1) * 100) + ((i % 13) + 2);
+
+        // manage the spacing correctly
+        if(i == 51) {
+             cout << (((i / 13) + 1) * 100) + ((i % 13) + 2); 
+        }
+
+        else{
+            cout << (((i / 13) + 1) * 100) + ((i % 13) + 2) << " ";
+        }
+
+
     }
-    
 
-    return 0;
+    cout << "]" << endl;;  
+
+
 
 }
 
-int rolldie() {
-    int firstNum = rand()%6 + 1;
-    int secondNum = rand()%6 + 1;
 
-    cout << "Player rolled " << firstNum << " + " << secondNum << " = " << firstNum + secondNum << endl;
 
-    return 0;
-}
+
+

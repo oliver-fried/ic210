@@ -7,7 +7,6 @@ using namespace std;
 string filename;
 int connection;
 int totalLineCount;
-int* topTen = new int[10];
 bool before(string a, string b);
 void selection_sort(string* A, int n);
 
@@ -37,50 +36,38 @@ int main()
     }
 
 
-    // sort the array by value
+    // sort the array alphabetically
     selection_sort(allConnections, totalLineCount);
+
+    
     string currentProtocol = allConnections[0];
     int totalConnections = 0;
-    // add top 10 from sorted array to a new array and print them
+
+    // if a protocol changes while reading in from the sorted array
+    // count it and add it to the total amount of connections
+
     for(int i = 1; i < totalLineCount; i++){
         if(allConnections[i] != currentProtocol){
             totalConnections = totalConnections + 1;
             currentProtocol = allConnections[i];
+            
         }
     }
 
-    cout << endl << totalConnections + 1;
+    cout << totalConnections + 1 << endl;
 
     return 0;
 }
 
 
-// if a is bigger than b, return true
+// if string a comes before string b, return true
+// else, return false
 bool before(string a, string b){
-    if(a[0] > b[0]){
-        return true;
-    }
-
-    else if(a[0] < b[0]) {
-        return false;
-    }
-
-    else {
-        int i = 0;
-        while(a[i] != b[0]){
-            i++;
-            if(a[i] > b[i]){
-                return true;
-            }
-
-            else if(a[i] < b[i]) {
-                return false;
-            }
-        }
-    }
+    return a > b;
 }
 
 
+// code from notes. sorts the string alphabetically together into groups
 void selection_sort(string* A, int n) {
     for (int i = 0; i < n - 1; ++i) {
     // find nexti, the index of the next element
