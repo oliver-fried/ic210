@@ -54,6 +54,11 @@ int main()
             wrongGuesses = wrongGuesses - 1;
         }
         
+        if(wrongGuesses == 0){
+            cout << "You loose!!!! The word was " << chosenWord;
+        }
+
+       
 
 
 
